@@ -4,7 +4,9 @@
     "description": "Test version.",
     "main": "index.js",
     "scripts": {
-        "start-sandbox": "webpack-dev-server --port 2022"
+        "start-sandbox": "webpack-dev-server --port 2022",
+        "test": "jest --maxWorkers=50% --config=jest.config.js",
+        "test:coverage": "jest --maxWorkers=50% --coverage --config=./jest.coverage.config.js --coverageDirectory=../tests/coverage -- ../tests/tests/"
     },
     "repository": {
         "type": "git",
@@ -18,11 +20,18 @@
     },
     "homepage": "https://github.com/gammafp/nacatamal-on#readme",
     "devDependencies": {
+        "@types/jest": "^28.1.5",
+        "@types/ramda": "^0.28.15",
         "html-webpack-plugin": "^5.5.0",
+        "jest": "^28.1.3",
+        "ts-jest": "^28.0.6",
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
         "webpack": "^5.73.0",
         "webpack-cli": "^4.10.0",
         "webpack-dev-server": "^4.9.3"
+    },
+    "dependencies": {
+        "ramda": "^0.28.0"
     }
 }

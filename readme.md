@@ -6,7 +6,8 @@ Test version
 ## Episodes
 
 0) Scafolding
-    - [ ] webpack and TS support
+    - [x] webpack and TS support
+    - [x] Jest tests config
 
 1) Render  
-    - [ ] Math library
+    - [ ] Math basic library and tests
