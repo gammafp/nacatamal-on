@@ -1,6 +1,6 @@
 import compileShader from "./compileShader";
 
-const createProgram = (gl, vertexShaderSource, fragmentShaderSource) => {
+const createProgram = (gl: WebGLRenderingContext, vertexShaderSource: string, fragmentShaderSource: string): WebGLProgram => {
     const program = gl.createProgram();
     const vertexShader = compileShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
     const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
