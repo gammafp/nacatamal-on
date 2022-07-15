@@ -1,5 +1,10 @@
 // Obtenemos el contexto de la aplicación
-const createWebGlContext = ({parent, width, height}) => {
+type TCreateWebGLContextConfig = {
+    parent: string,
+    width: number,
+    height: number,
+}
+const createWebGlContext = ({parent, width, height}: TCreateWebGLContextConfig) => {
     const canvas = document.querySelector(`#${parent}`) as HTMLCanvasElement;
     canvas.width = width;
     canvas.height = height;

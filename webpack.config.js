@@ -32,6 +32,10 @@ module.exports = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.frag?$/,
+                use: "raw-loader"
+            }
         ],
     },
     plugins: [
