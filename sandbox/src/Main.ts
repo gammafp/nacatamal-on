@@ -10,5 +10,3 @@ const GL = createWebGlContext({
     width: 800,
     height: 600
 });
-
-console.log(fragmentShader2)
