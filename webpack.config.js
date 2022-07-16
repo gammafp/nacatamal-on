@@ -33,7 +33,7 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.frag?$/,
+                test: /\.(glsl|vert|frag)$/,
                 use: "raw-loader"
             }
         ],

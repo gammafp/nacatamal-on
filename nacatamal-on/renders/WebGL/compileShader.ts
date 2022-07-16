@@ -1,4 +1,5 @@
-const compileShader = (gl: WebGLRenderingContext, type, source) => {
+type TTypeShader = WebGLRenderingContextBase["FRAGMENT_SHADER"] | WebGLRenderingContextBase["VERTEX_SHADER"];
+const compileShader = (gl: WebGLRenderingContext, type: TTypeShader, source: string) => {
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
