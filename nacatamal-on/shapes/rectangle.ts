@@ -1,4 +1,4 @@
-const rectangle = (gl, x, y, width, height) => {
+export const rectangle = (gl, x, y, width, height) => {
   var x1 = x;
   var x2 = x + width;
   var y1 = y;
@@ -12,5 +12,3 @@ const rectangle = (gl, x, y, width, height) => {
      x2, y2,
   ]), gl.STATIC_DRAW);
 }
-
-export default rectangle;

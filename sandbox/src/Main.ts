@@ -1,7 +1,10 @@
 import { createWebGlContext } from "nacatamal-on/Renders/WebGL";
 
+import {  rectangle } from "nacatamal-on/shapes/Rectangle";
+
 import fragmentShaderSource from "nacatamal-on/renders/shaders/fragmentShader.frag";
 import vertexShaderSource from "nacatamal-on/renders/shaders/vertexShader.vert";
+import { triforce } from "nacatamal-on/shapes/triforce";
 
 // Crea WebGL context
 const GL = createWebGlContext({
@@ -15,6 +18,7 @@ const GL = createWebGlContext({
 const vertexShader = GL.createShader(GL.VERTEX_SHADER); // Esto es necesario
 GL.shaderSource(vertexShader, vertexShaderSource); // Se hace bind al shader con el source
 GL.compileShader(vertexShader); // Se compila el shader
+
 
 // Fragment
 const fragmentShader = GL.createShader(GL.FRAGMENT_SHADER); // Esto es necesario
@@ -44,9 +48,7 @@ const program = GL.createProgram();
 GL.attachShader(program, vertexShader);
 GL.attachShader(program, fragmentShader);
 GL.linkProgram(program);
-
-
-
+// Tell webgl which program should be active
 
 // Status
 const programSuccess = GL.getProgramParameter(program, GL.LINK_STATUS);
@@ -55,53 +57,51 @@ if (!programSuccess) {
     console.error("* Error en el Program: ", GL.getProgramInfoLog(program));
     GL.deleteProgram(program);
 }
-
 console.log("* Program linked");
 
-// ## End program creation
-// ## Attributes
-const positionAttributeLocation = GL.getAttribLocation(program, "a_position");
-const positionBuffer = GL.createBuffer();
-GL.bindBuffer(GL.ARRAY_BUFFER, positionBuffer);
-GL.enableVertexAttribArray(positionAttributeLocation);
-
-const offsetX = -0.25;
-const offsetY = -0.25;
-// triangle 2D points
-const positions = [
-    0 + offsetX, 0 + offsetY,
-    0.25 + offsetX, 0.5 + offsetY,
-    0.5 + offsetX, 0 + offsetY,
-];
-GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(positions), GL.STATIC_DRAW);
-
-// ## End attributes
 // ## Render code
 console.log("* Set viewport");
+
 GL.viewport(0, 0, GL.canvas.width, GL.canvas.height);
 
 console.log("* Clear canvas");
 GL.clearColor(0, 0, 0, 0);
 GL.clear(GL.COLOR_BUFFER_BIT);
 
+GL.useProgram(program);
+// ## End program creation
+
+// ## Attributes
+const positionAttributeLocation = GL.getAttribLocation(program, "a_position");
+const positionBuffer = GL.createBuffer();
+GL.bindBuffer(GL.ARRAY_BUFFER, positionBuffer);
+GL.enableVertexAttribArray(positionAttributeLocation);
+
+// Get uniform location
+const resolutionUniformLocation = GL.getUniformLocation(program, "u_resolution");
+// Set uniform resolution
+GL.uniform2f(resolutionUniformLocation, GL.canvas.width, GL.canvas.height);
+
+const sizeT = 150;
+
+// ## End attributes
+for(let i = 0; i < 25; i++) {
+    // Math random between 30 to 150
+    const size = Math.floor(Math.random() * (sizeT - 30)) + 30;
+    // Math random x position in canvas
+    const x = Math.floor(Math.random() * (GL.canvas.width - size));
+    // Math random y position in canvas
+    const y = Math.floor(Math.random() * (GL.canvas.height - size));
+    triforce(GL, x, y, size, size, positionAttributeLocation);
+
+}
+// triforce(GL, 0, 10, sizeT, sizeT, positionAttributeLocation);
+
+
 // ## End render code
 // ## Draw code
-// Tell webgl which program should be active
-GL.useProgram(program);
 
-GL.bindBuffer(GL.ARRAY_BUFFER, positionBuffer);
 
-// Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-const size = 2;
-const type = GL.FLOAT;
-const normalize = false;
-const stride = 0;
-const offset = 0;
-GL.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
 
-const primitive = GL.TRIANGLES;
-const offsetPrimitive = 0;
-const count = 3;
-GL.drawArrays(primitive, offsetPrimitive, count);
 
 console.log("* Draw triangle");
