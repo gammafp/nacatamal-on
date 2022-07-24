@@ -1,4 +1,4 @@
-export const triforce = (gl, x: number, y: number, width: number, height: number, positionAttributeLocation:any) => {
+export const triforce = (gl, x: number, y: number, width: number, height: number) => {
     // First triangle
     const vertice0 = [x + width / 4, y + height / 2];
     const vertice1 = [x + width / 2, y + height];
@@ -31,14 +31,6 @@ export const triforce = (gl, x: number, y: number, width: number, height: number
 
     const GL = gl;
     // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-    const size = 2;
-    const type = GL.FLOAT;
-    const normalize = false;
-
-    const stride = 0;
-    const offset = 0;
-
-    GL.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
 
     const primitive = GL.TRIANGLES;
     const offsetPrimitive = 0;

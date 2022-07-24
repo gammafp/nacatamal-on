@@ -11,4 +11,11 @@ export const rectangle = (gl, x, y, width, height) => {
      x2, y1,
      x2, y2,
   ]), gl.STATIC_DRAW);
+
+  const primitive = gl.TRIANGLES;
+  const offsetPrimitive = 0;
+  const count = 6;
+
+  gl.drawArrays(primitive, offsetPrimitive, count);
+
 }

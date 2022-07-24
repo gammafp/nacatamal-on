@@ -1,5 +1,4 @@
 const draw = (gl, shape) => {
-    console.log("draw triangle")
     gl.bufferData(
         gl.ARRAY_BUFFER,
         shape.data,
