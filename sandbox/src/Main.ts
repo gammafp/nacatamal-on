@@ -1,11 +1,13 @@
-import { createWebGlContext, createProgram, draw, getAttribLocation, gameLoop, compileShader } from 'nacatamal-on/Renders/WebGL';
+import { createProgram, createWebGlContext, gameLoop, getAttribLocation } from 'nacatamal-on/Renders/WebGL';
 
-import { rectangle } from 'nacatamal-on/shapes/Rectangle';
+import fragmentShaderSource from "nacatamal-on/renders/shaders/fragment/varyingColor.frag";
+import vertexShaderSource from "nacatamal-on/renders/shaders/vertex/varyingColor.vert";
 
-import fragmentShaderSource from 'nacatamal-on/renders/shaders/fragmentShader.frag';
-import vertexShaderSource from 'nacatamal-on/renders/shaders/vertexShader.vert';
-import { triforce } from 'nacatamal-on/shapes/triforce';
+// import { triforce } from 'nacatamal-on/shapes/triforce';
 import triangle from 'nacatamal-on/shapes/triangle';
+import { triforce } from 'nacatamal-on/shapes/triforce';
+import Color from 'nacatamal-on/colors';
+import { Matrix3 } from 'nacatamal-on/math/matrix3/Matrix3';
 // import { triforce } from "nacatamal-on/shapes/triforce";
 
 // Crea WebGL context
@@ -17,25 +19,17 @@ const GL: WebGLRenderingContext = createWebGlContext({
 
 const program = createProgram(GL, vertexShaderSource, fragmentShaderSource);
 
-const attribLocation = getAttribLocation(GL, program, 'a_position');
+// Create position vertext buffer
+const positionBuffer = getAttribLocation(GL, program, "a_position");
 
-const uResolution = GL.getUniformLocation(program, 'u_resolution');
+const uResolution = GL.getUniformLocation(program, "u_resolution");
 GL.uniform2f(uResolution, GL.canvas.width, GL.canvas.height);
 
-const positionBuffer = GL.createBuffer();
-GL.bindBuffer(GL.ARRAY_BUFFER, positionBuffer);
+const matrix3 = new Matrix3();
 
-const size = 2;
-const type = GL.FLOAT;
-const normalize = false;
-
-const stride = 0;
-const offset = 0;
-GL.vertexAttribPointer(attribLocation, size, type, normalize, stride, offset);
-
-const colorUniformLocation = GL.getUniformLocation(program, "u_color");
-GL.uniform4f(colorUniformLocation, Math.random(), Math.random(), Math.random(), 1);
+const uMatrixLocation = GL.getUniformLocation(program, "u_matrix");
+GL.uniformMatrix3fv(uMatrixLocation, false, matrix3.toArray());
 
 gameLoop(GL, () => {
-    triangle( GL, 150, 200, 100, 100);
+    triforce(GL, 400, 100, 100, 100)
 });
