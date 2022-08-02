@@ -33,6 +33,7 @@
         "webpack-dev-server": "^4.9.3"
     },
     "dependencies": {
-        "ramda": "^0.28.0"
+        "ramda": "^0.28.0",
+        "tweakpane": "^3.1.0"
     }
 }
