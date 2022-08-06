@@ -1,16 +1,21 @@
-export const triforce = (gl, x: number, y: number, width: number, height: number) => {
+export const triforce = (gl, x: number, y: number, width: number, height: number, origin = 0.5) => {
+    const originXY = {
+        x: origin * width,
+        y: 0
+    };
+    
     // First triangle
-    const vertice0 = [x + width / 4, y + height / 2];
-    const vertice1 = [x + width / 2, y + height];
-    const vertice2 = [x, y + height];
+    const vertice0 = [(x + width / 4) - originXY.x, (y + height / 2) - originXY.y];
+    const vertice1 = [(x + width / 2) - originXY.x, (y + height) - originXY.y];
+    const vertice2 = [x - originXY.x, (y + height) - originXY.y];
 
     // Second triangle
-    const vertice3 = [x + width * 3 / 4, y + height / 2];
-    const vertice4 = [x + width, y + height];
+    const vertice3 = [(x + width * 3 / 4) - originXY.x, y + height / 2 - originXY.y];
+    const vertice4 = [x + width - originXY.x, y + height - originXY.y];
     const vertice5 = [...vertice1];
 
     // // Third triangle
-    const vertice6 = [x + width / 2, y];
+    const vertice6 = [x + width / 2 - originXY.x, y - originXY.y];
     const vertice7 = [...vertice3];
     const vertice8 = [...vertice0];
 

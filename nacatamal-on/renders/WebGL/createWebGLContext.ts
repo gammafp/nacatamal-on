@@ -1,15 +1,6 @@
 // Obtenemos el contexto de la aplicación
-type TCreateWebGLContextConfig = {
-    parent: string,
-    width: number,
-    height: number,
-}
-const createWebGlContext = ({parent, width, height}: TCreateWebGLContextConfig) => {
-    const canvas = document.querySelector(`#${parent}`) as HTMLCanvasElement;
-    canvas.width = width;
-    canvas.height = height;
-    canvas.style.backgroundColor = "#1e272e";
-    const gl = canvas.getContext('webgl');
+const createWebGlContext = (parent: HTMLCanvasElement) => {
+    const gl = parent.getContext('webgl');
     if(!gl) {
         console.error('WebGL is not supported');
     } else {

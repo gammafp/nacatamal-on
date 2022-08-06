@@ -1,4 +1,4 @@
-const triangle = (gl, x: number, y: number, width: number, height: number) => {
+export const triangle = (gl, x: number, y: number, width: number, height: number) => {
 
     const vertice0 = [x + width / 2, y];
     const vertice1 = [x + width, y + height];
@@ -20,5 +20,3 @@ const triangle = (gl, x: number, y: number, width: number, height: number) => {
 
     GL.drawArrays(primitive, offsetPrimitive, count);
 }
-
-export default triangle;

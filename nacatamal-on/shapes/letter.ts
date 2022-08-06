@@ -1,4 +1,4 @@
-const Letter = (gl) => {
+export const letter = (gl) => {
     const data = new Float32Array([
         // left column
         0, 0, 0,
@@ -30,5 +30,3 @@ const Letter = (gl) => {
         vertex: 18
     };
 }
-
-export default Letter;

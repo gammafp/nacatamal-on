@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createWebGlContext, createProgram, draw, getAttribLocation, gameLoop, compileShader } from 'nacatamal-on/Renders/WebGL';
 
 import { rectangle } from 'nacatamal-on/shapes/Rectangle';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createWebGlContext } from "nacatamal-on/Renders/WebGL";
 
 import {  rectangle } from "nacatamal-on/shapes/Rectangle";
