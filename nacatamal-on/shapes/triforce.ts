@@ -3,7 +3,7 @@ export const triforce = (gl, x: number, y: number, width: number, height: number
         x: origin * width,
         y: 0
     };
-    
+
     // First triangle
     const vertice0 = [(x + width / 4) - originXY.x, (y + height / 2) - originXY.y];
     const vertice1 = [(x + width / 2) - originXY.x, (y + height) - originXY.y];
@@ -19,7 +19,6 @@ export const triforce = (gl, x: number, y: number, width: number, height: number
     const vertice7 = [...vertice3];
     const vertice8 = [...vertice0];
 
-
     const position = new Float32Array([
         ...vertice0,
         ...vertice1,
@@ -32,7 +31,6 @@ export const triforce = (gl, x: number, y: number, width: number, height: number
         ...vertice8
     ]);
 
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
 
     const GL = gl;
     // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
@@ -41,6 +39,10 @@ export const triforce = (gl, x: number, y: number, width: number, height: number
     const offsetPrimitive = 0;
     const count = 12;
 
-    GL.drawArrays(primitive, offsetPrimitive, count);
-
+    return {
+        draw: () => {
+            gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
+            GL.drawArrays(primitive, offsetPrimitive, count);
+        }
+    }
 }

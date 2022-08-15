@@ -1,63 +1,58 @@
 import { getRenderContext } from "nacatamal-on/Engine";
 import { getProgram } from "nacatamal-on/Engine/engineStore";
 import { Matrix3 } from "nacatamal-on/math";
+import { gameLoop } from "nacatamal-on/renders/WebGL";
 
-import { createProgram, gameLoop, getAttribLocation } from "nacatamal-on/renders/WebGL";
-import { triforce } from "nacatamal-on/shapes";
+import { rectangle, triforce } from "nacatamal-on/shapes";
 import { Pane } from "tweakpane";
 
-const matrix3 = new Matrix3();
-const triforcePosition = {
-    x: 0,
-    y: 0,
+const rectPosition = {
+    width: 300,
+    height: 100,
+    x: 100,
+    y: 100,
     rotate: 0,
     origin: 0.5
 }
-
 export const SceneMain = () => {
+
+    console.warn("** Scene main cargada **");
+    // Obtenemos el contexto de webGL render
     const GL = getRenderContext();
+
+
+    console.log("Program: ", getProgram());
     const uMatrixLocation = GL.getUniformLocation(getProgram(), "u_matrix");
 
-    matrix3.translate(triforcePosition.x, triforcePosition.y);
-    matrix3.rotate(triforcePosition.rotate);
+    const matrix3 = new Matrix3();
 
     GL.uniformMatrix3fv(uMatrixLocation, false, matrix3.toArray());
+    
+    const rectangleG = rectangle(GL, 0, 0, rectPosition.width, rectPosition.height);
+    const triforceG = triforce(GL, 200, 200, 100, 100);
 
-    triforce(GL, 0, 0, 100, 100, triforcePosition.origin);
+    // Constant update
+    gameLoop(() => {
+        matrix3.translate(rectPosition.x, rectPosition.y);
+        GL.uniformMatrix3fv(uMatrixLocation, false, matrix3.toArray());
 
+        // ####### Espacio para objetos
+        triforceG.draw();
+        rectangleG.draw();
+    });
+
+    // Constantes de tweakpane
+    const params = {
+        x: rectPosition.x,
+    }
+    const pane = new Pane();
+    const x = (pane as any).addInput(params, "x", {min: 0, max: GL.canvas.width - rectPosition.width, step: 1});
+    x.on("change", (x) => {
+        rectPosition.x = x.value;
+    });
 
     // Only for testing purposes
     return {
-        name: 'SceneMain',
+        name: 'SceneMain'
     }
 }
-
-// ### GUI controls ###
-const PARAMS = {
-    x: 0,
-    y: 0,
-    angle: 0,
-    origin: 0.5
-};
-const pane: any = new Pane();
-pane.addInput(PARAMS, 'x', { min: 0, max: 600 - 100, step: 1 })
-    .on('change', (value: any) => {
-        console.log("POsition")
-        triforcePosition.x = value.value;
-    });
-pane.addInput(PARAMS, 'y', { min: 0, max: 600 - 100, step: 1 })
-    .on('change', (value: any) => {
-        triforcePosition.y = value.value;
-    });
-pane.addInput(PARAMS, 'angle', { min: 0, max: 360 * 2, step: 1 })
-    .on('change', (value: any) => {
-        const angleInRadians = value.value * Math.PI / 180;
-        triforcePosition.rotate = angleInRadians;
-
-    });
-
-pane.addInput(PARAMS, 'origin', { min: 0, max: 1.0, step: 0.1 })
-    .on('change', (value: any) => {
-        triforcePosition.origin = value.value;
-
-    });

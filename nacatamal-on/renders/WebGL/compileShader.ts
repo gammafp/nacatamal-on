@@ -1,5 +1,4 @@
 const compileShader = (gl: WebGLRenderingContext, type: "fragmentshader" | "vertexshader", source: string) => {
-    console.log("Tipo de shader: ", type);
     const typeShader = type === "fragmentshader" ? gl.FRAGMENT_SHADER : gl.VERTEX_SHADER;
     const shader = gl.createShader(typeShader);
     gl.shaderSource(shader, source);
@@ -7,7 +6,7 @@ const compileShader = (gl: WebGLRenderingContext, type: "fragmentshader" | "vert
     
     const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
     if(!success) {
-        console.error(`Algún error con el ${type}: `, gl.getShaderInfoLog(shader));
+        console.error(`Shader error: ${type}: `, gl.getShaderInfoLog(shader));
         gl.deleteShader(shader)
     }
     return shader;

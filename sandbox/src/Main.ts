@@ -1,26 +1,12 @@
-import { createEngine } from 'nacatamal-on/Engine';
-import { changeScenes, createScenes } from 'nacatamal-on/scenes/sceneManager';
-import { SceneMain } from './Scenes/SceneMain';
-import { SceneMain2 } from './Scenes/SceneMain2';
+import { createEngine } from "nacatamal-on/Engine";
+import { createScenes } from "nacatamal-on/scenes/sceneManager";
+import { SceneMain } from "./Scenes/SceneMain";
 
-const game = createEngine({
-    parent: 'canvas-with-yuka',
+const engine = createEngine({
     width: 600,
     height: 600,
+    parent: "canvas-with-yuka"
 });
-
-game(() => {
-    
-    setTimeout(() => {
-        changeScenes(SceneMain2);
-    }, 3000);
-
-    setTimeout(() => {
-        changeScenes(SceneMain);
-    }, 6000);
-
-    return createScenes([
-        SceneMain,
-        SceneMain2
-    ]);
+engine(() => {
+    return createScenes([SceneMain])
 });

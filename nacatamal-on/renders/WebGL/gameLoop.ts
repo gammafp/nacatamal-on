@@ -1,18 +1,16 @@
 import { getRenderContext } from "nacatamal-on/Engine";
 
-export const gameLoop = (loop_callback?: () => void) => {
+export const gameDraw = (callback?: () => void) => {
+    const GL = getRenderContext();
+    GL.clear(GL.COLOR_BUFFER_BIT);
+    GL.flush();
 
-    const gl = getRenderContext();
-
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    gl.clearColor(0, 0, 0, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.flush();
-
-    if (loop_callback !== undefined) {
-        loop_callback();
+    if (callback) {
+        callback();
     }
-    window.requestAnimationFrame(() => {
-        gameLoop(loop_callback);
-    });
+}
+
+export const gameLoop = (loop_callback?: () => void) => {
+    gameDraw(loop_callback);
+    requestAnimationFrame(() => gameLoop(loop_callback));
 }
