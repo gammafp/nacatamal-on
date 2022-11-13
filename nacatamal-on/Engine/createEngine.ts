@@ -5,6 +5,7 @@ import { TCreateScenesReturn } from "nacatamal-on/scenes/sceneManager";
 // Vertext and fragment section import
 import fragmentShaderSource from "nacatamal-on/renders/shaders/fragment/varyingColor.frag";
 import vertexShaderSource from "nacatamal-on/renders/shaders/vertex/varyingColor.vert";
+
 import { gameDraw } from "nacatamal-on/renders/WebGL/gameLoop";
 
 type TCreateEngineConfig = {

@@ -1,10 +1,8 @@
 import { getRenderContext } from "nacatamal-on/Engine";
-import { getProgram } from "nacatamal-on/Engine/engineStore";
-import { Matrix3 } from "nacatamal-on/math";
 import { gameLoop } from "nacatamal-on/renders/WebGL";
+import FragmentSource from "nacatamal-on/renders/shaders/fragment/fragmentShader.frag";
+import VertexSource from "nacatamal-on/renders/shaders/vertex/vertexShader.vert";
 
-import { rectangle, triforce } from "nacatamal-on/shapes";
-import { Pane } from "tweakpane";
 
 const rectPosition = {
     width: 300,
@@ -15,44 +13,66 @@ const rectPosition = {
     origin: 0.5
 }
 export const SceneMain = () => {
+    console.log("** Inicio SceneMain **");
 
-    console.warn("** Scene main cargada **");
-    // Obtenemos el contexto de webGL render
-    const GL = getRenderContext();
+    const gl = getRenderContext();
+
+    // Creación de shaders
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragmentShader, FragmentSource);
+    gl.compileShader(fragmentShader);
+
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertexShader, VertexSource);
+    gl.compileShader(vertexShader);
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
 
 
-    console.log("Program: ", getProgram());
-    const uMatrixLocation = GL.getUniformLocation(getProgram(), "u_matrix");
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
-    const matrix3 = new Matrix3();
+    gl.useProgram(program);
 
-    GL.uniformMatrix3fv(uMatrixLocation, false, matrix3.toArray());
+
+
+    // Getuniform u_resolution
+    const resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
+    gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+
+
+    // Get attribute location
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     
-    const rectangleG = rectangle(GL, 0, 0, rectPosition.width, rectPosition.height);
-    const triforceG = triforce(GL, 200, 200, 100, 100);
+    const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+    gl.enableVertexAttribArray(positionAttributeLocation);
 
-    // Constant update
+    // Position buffer
+    gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0); // 2 X, Y
+
+
+    // Dibujar un cuadrado
+    const squareData = new Float32Array([
+        0, 0,
+        100, 0,
+        0, 100,
+        100, 0,
+        100, 100,
+        0, 100,
+    ]);
+    gl.bufferData(gl.ARRAY_BUFFER, squareData, gl.STATIC_DRAW);
+
+    // Draw the square
+
+
     gameLoop(() => {
-        matrix3.translate(rectPosition.x, rectPosition.y);
-        GL.uniformMatrix3fv(uMatrixLocation, false, matrix3.toArray());
+        // console.log("Gameloop");
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-        // ####### Espacio para objetos
-        triforceG.draw();
-        rectangleG.draw();
     });
-
-    // Constantes de tweakpane
-    const params = {
-        x: rectPosition.x,
-    }
-    const pane = new Pane();
-    const x = (pane as any).addInput(params, "x", {min: 0, max: GL.canvas.width - rectPosition.width, step: 1});
-    x.on("change", (x) => {
-        rectPosition.x = x.value;
-    });
-
-    // Only for testing purposes
-    return {
-        name: 'SceneMain'
-    }
 }

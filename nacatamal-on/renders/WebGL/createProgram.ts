@@ -12,7 +12,7 @@ const createProgram = (gl: WebGLRenderingContext, vertexShaderSource: string, fr
 
     const success = gl.getProgramParameter(program, gl.LINK_STATUS);
     if (!success) {
-        console.log("Error in program: ", gl.getProgramInfoLog(program));
+        console.error("Error in program: ", gl.getProgramInfoLog(program));
         gl.deleteProgram(program);
     }
     
