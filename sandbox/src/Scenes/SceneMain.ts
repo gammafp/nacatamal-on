@@ -3,7 +3,6 @@ import { gameLoop } from "nacatamal-on/renders/WebGL";
 import FragmentSource from "nacatamal-on/renders/shaders/fragment/fragmentShader.frag";
 import VertexSource from "nacatamal-on/renders/shaders/vertex/vertexShader.vert";
 
-
 const rectPosition = {
     width: 300,
     height: 100,
@@ -39,7 +38,6 @@ export const SceneMain = () => {
     gl.useProgram(program);
 
 
-
     // Getuniform u_resolution
     const resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
     gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
@@ -56,14 +54,17 @@ export const SceneMain = () => {
     gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0); // 2 X, Y
 
 
+    const offsetX = 100;
+    const offsetY = 100;
+
     // Dibujar un cuadrado
     const squareData = new Float32Array([
-        0, 0,
-        100, 0,
-        0, 100,
-        100, 0,
-        100, 100,
-        0, 100,
+        offsetX + 0, 0 + offsetY,
+        offsetX + 100, 0 + offsetY,
+        offsetX + 0, 100 + offsetY,
+        offsetX + 100, 0 + offsetY,
+        offsetX + 100, 100 + offsetY,
+        offsetX + 0, 100 + offsetY,
     ]);
     gl.bufferData(gl.ARRAY_BUFFER, squareData, gl.STATIC_DRAW);
 

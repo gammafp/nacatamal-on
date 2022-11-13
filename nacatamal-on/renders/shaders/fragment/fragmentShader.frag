@@ -8,5 +8,5 @@ void main() {
   // is responsible for setting
 
 
-  gl_FragColor = vec4(0.0706, 0.7137, 0.6824, 1.0); // return reddish-purple
+  gl_FragColor = vec4(0.7451, 0.4941, 0.0196, 1.0); // return reddish-purple
 }
