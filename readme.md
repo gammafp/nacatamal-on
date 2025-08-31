@@ -34,3 +34,8 @@ It is a work in progress, and the goal is to create a game engine that is easy t
 
 Interoperability with C libraries and Rust libraries is a key feature of Zig, allowing you to call C functions and use C libraries directly in your Zig code. This is particularly useful for integrating existing libraries or leveraging system APIs.
 
+## Libs
+- bvaughn/react-resizable-panels 
+- react-tooltip
+- https://www.npmjs.com/package/react-toastify
+- npm i @codaworks/react-glow
