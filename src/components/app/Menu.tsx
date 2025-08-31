@@ -1,14 +1,31 @@
-import { Button } from "../ui/button"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Link } from "react-router";
+ 
+export const Menu = () => {
 
-export const Menu = ({ title }: { title: string }) => {
     return (
-        <div className="relative flex items-center outline p-3">
-            <Button variant={"link"} className="cursor-pointer absolute left-10 text-xl text-chart-3">
-                NacatamalOn
-            </Button>
-            <h1 className="mx-auto text-center">
-                Welcome to WebGPU - {title}
-            </h1>
-        </div>
-    );
+        <Accordion
+            type="single"
+            collapsible
+            className="w-full ps-2"
+            defaultValue="item-1"
+        >
+            <AccordionItem value="item-1">
+                <AccordionTrigger>Start</AccordionTrigger>
+                <AccordionContent className="flex flex-col ps-3 text-balance">
+
+                    <Link to="/start/hello-webgpu" className="cursor-pointer hover:underline">
+                        - Hello WebGPU
+                    </Link>
+                    <Link to="/pointes" className="cursor-pointer hover:underline">
+                        - Pointes
+                    </Link>
+                    <Link to="/lines-and-strips" className="cursor-pointer hover:underline">
+                        - Lines and Strips
+                    </Link>
+                    
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    )
 }

@@ -12,6 +12,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),
+            "@nacatamal-on": path.resolve(__dirname, "./nacatamal_on"),
         },
     },
 })

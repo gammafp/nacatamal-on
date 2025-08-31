@@ -28,10 +28,17 @@
         "paths": {
             "@/*": [
                 "./src/*"
+            ],
+            "@nacatamal-on": [
+                "./nacatamal_on"
+            ],
+            "@nacatamal-on/*": [
+                "./nacatamal_on/*"
             ]
         }
     },
     "include": [
-        "src"
+        "src",
+        "nacatamal_on"
     ]
 }

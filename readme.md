@@ -4,6 +4,8 @@ NacatamalOn is a game engine developed in TypeScript/Rust/Zig inspired by functi
 
 It is a work in progress, and the goal is to create a game engine that is easy to use, flexible, and powerful.
 
+![alt text](https://raw.githubusercontent.com/gammafp/nacatamal-on/refs/heads/main/public/logo/logo.png)
+
 ### Features
 - TypeScript support
 - Functional programming inspired
