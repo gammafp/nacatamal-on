@@ -7,12 +7,12 @@ export const Menu = () => {
         <Accordion
             type="single"
             collapsible
-            className="w-full ps-2"
+            className="w-full ps-2 border-b-1"
             defaultValue="item-1"
         >
             <AccordionItem value="item-1">
-                <AccordionTrigger>Start</AccordionTrigger>
-                <AccordionContent className="flex flex-col ps-3 text-balance">
+                <AccordionTrigger className="text-ring">Start</AccordionTrigger>
+                <AccordionContent className="flex flex-col ps-3 text-balance  ">
 
                     <Link to="/start/hello-webgpu" className="cursor-pointer hover:underline">
                         - Hello WebGPU
