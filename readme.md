@@ -19,13 +19,6 @@ It is a work in progress, and the goal is to create a game engine that is easy t
 
 - [Code Style Guide — NacatamalOn](style_guide_nacatamalon.md)
 
-### Episodes
-
-0) Scafolding
-    - [] Update to public vite scaffolding to develop the library
-    - [] Replace WebGL in favour of WebGPU
-
-
 ## NOTES:
 
 ### References to update the Game Engine
