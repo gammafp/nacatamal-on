@@ -9,12 +9,10 @@
 }
 
 .left-container {
-    width: 250px;
     height: 100%;
 }
 
 .right-container {
-    width: calc(100% - 250px);
     height: 100%;
 }
 

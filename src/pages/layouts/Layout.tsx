@@ -1,5 +1,6 @@
 import { Menu } from "@/components/app/Menu";
 import { Title } from "@/components/app/Title";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Outlet } from 'react-router'
 
 export const Layout = () => {
@@ -9,15 +10,22 @@ export const Layout = () => {
             <Title />
             <div className="app-content flex">
 
-                <div className="left-container border-r-2">
+                <ResizablePanelGroup direction="horizontal" className="flex h-[calc(100vh-4rem)] w-full">
 
-                    <Menu />
 
-                </div>
-                <div className="right-container">
+                    <ResizablePanel defaultSize={20} className="left-container border-r-2">
 
-                    <Outlet />
-                </div>
+                        <Menu />
+
+                    </ResizablePanel>
+
+                    <ResizableHandle withHandle />
+
+                    <ResizablePanel defaultSize={80} className="right-container">
+
+                        <Outlet />
+                    </ResizablePanel>
+                </ResizablePanelGroup>
             </div>
         </div>
     );
